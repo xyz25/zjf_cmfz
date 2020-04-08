@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cmfz/', include('index.urls')),
     path('user/', include('user.urls')),
+    path('carousel/', include('carousel.urls')),
 ]
