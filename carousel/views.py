@@ -12,7 +12,7 @@ from carousel.models import Carousel
 
 
 def get_list(request):
-    """获取全部的轮播图信息"""
+    """获取单页的轮播图信息"""
     rows = request.GET.get('rows', 2)
     page = request.GET.get('page', 1)
     st_list = list(Carousel.objects.all().order_by('id'))
@@ -49,6 +49,11 @@ def get_list(request):
 
 @csrf_exempt
 def edit(request):
+    """
+    修改、删除 轮播图信息
+    :param request:
+    :return:
+    """
     oper = request.POST.get('oper')
     desc = request.POST.get('desc')
     id = request.POST.get('id')
@@ -68,6 +73,11 @@ def edit(request):
 
 @csrf_exempt
 def add(request):
+    """
+    添加轮播图信息
+    :param request:
+    :return:
+    """
     title = request.POST.get('title')
     print(request.POST.get('status'))
     status = True if request.POST.get('status') == '1' else False
