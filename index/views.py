@@ -2,6 +2,9 @@ from django.shortcuts import render
 
 
 # Create your views here.
-def index(request):
+from carousel.models import Carousel
 
-    return render(request, 'index/index.html',{'adminname':request.session.get('adminname')})
+
+def index(request):
+    carousels = list(Carousel.objects.all())[:3]
+    return render(request, 'index/index.html',{'adminname':request.session.get('adminname'),'carousels':carousels})

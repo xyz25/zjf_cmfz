@@ -17,15 +17,18 @@
                 {name: "desc", editable: true},
                 {name: "date"},
                 {
-                    name: "status", editable: true, edittype: 'select',
-                    editoptions: {dataUrl: "/carousel/get_status"},formatter:function (cellvalue,options,rowObject) {
+                    name: "status",
+                    editable: true,
+                    edittype: 'select',
+                    editoptions: {dataUrl: "/carousel/get_status"},
+                    formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue === false) return '不显示'
                         else return '显示'
                     }
                 },
                 {
                     name: "img_url", formatter: function (cellvalue, options, rowObject) {
-                        return "<img style='height:50px' src='/static/"+cellvalue+"'>"
+                        return "<img style='height:50px' src='/static/" + cellvalue + "'>"
                     }
                 },
                 {
@@ -75,13 +78,6 @@
 
     function del(row_id) {
         $("#carouseltable").jqGrid('delGridRow', row_id, {
-            reloadAfterSubmit: true
-        });
-    }
-
-    function add() {
-        $("#carouseltable").jqGrid('editGridRow', "new", {
-            height: 300,
             reloadAfterSubmit: true
         });
     }
@@ -151,7 +147,7 @@
                 </form>
             </div>
             <div class="modal-footer" id="modal_footer">
-                <button type="button" class="btn btn-primary" id="save">保存</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="save">保存</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">取消</button>
             </div>
         </div>

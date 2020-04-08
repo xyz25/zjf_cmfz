@@ -41,6 +41,7 @@ def get_list(request):
                 'status': u.status,
                 'img_url': str(u.img_url),
             }
+
     data = json.dumps(page_data, default=mydefault)
     print(data)
     return HttpResponse(data)
@@ -68,7 +69,9 @@ def edit(request):
 @csrf_exempt
 def add(request):
     title = request.POST.get('title')
-    status = True if request.POST.get('status') else False
+    print(request.POST.get('status'))
+    status = True if request.POST.get('status') == '1' else False
+    print(status)
     pic = request.FILES.get('pic')
     Carousel.objects.create(title=title, status=status, img_url=pic)
     return HttpResponse()
