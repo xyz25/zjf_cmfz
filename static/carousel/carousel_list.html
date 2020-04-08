@@ -19,14 +19,13 @@
                 {
                     name: "status", editable: true, edittype: 'select',
                     editoptions: {dataUrl: "/carousel/get_status"},formatter:function (cellvalue,options,rowObject) {
-                        console.log(cellvalue);
-                        return cellvalue
+                        if (cellvalue === false) return '不显示'
+                        else return '显示'
                     }
                 },
                 {
                     name: "img_url", formatter: function (cellvalue, options, rowObject) {
-                        console.log(cellvalue);
-                        return cellvalue
+                        return "<img style='height:50px' src='/static/"+cellvalue+"'>"
                     }
                 },
                 {
@@ -95,7 +94,6 @@
 <ul class="nav nav-tabs ">
     <li class="active"><a href="#"><b>轮播图信息</b></a></li>
 </ul>
-
 <div class="panel panel-default" style="padding: 40px">
     <table id="carouseltable"></table>
 

@@ -33,15 +33,14 @@ def get_list(request):
 
     def mydefault(u):
         if isinstance(u, Carousel):
-            print(u.status, u.img_url)
+            # print(u.status, u.img_url)
             return {
                 'id': u.id,
                 'desc': u.title,
                 'date': u.publish_time.strftime("%Y-%m-%d %H:%M:%S"),
                 'status': u.status,
-                'img_url': u.img_url,
+                'img_url': str(u.img_url),
             }
-
     data = json.dumps(page_data, default=mydefault)
     print(data)
     return HttpResponse(data)
@@ -53,6 +52,7 @@ def edit(request):
     desc = request.POST.get('desc')
     id = request.POST.get('id')
     status = request.POST.get('status')
+    print(status)
     if oper == 'edit':
         with transaction.atomic():
             car = Carousel.objects.get(id=id)

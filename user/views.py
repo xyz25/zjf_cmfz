@@ -48,6 +48,7 @@ def login_form(request):
     if re.match(r'^[1][3,4,5,7,8][0-9]{9}$', mobile) and Admin.objects.filter(name=mobile):
         redis_code = red.get(mobile + '_1').decode()
         if redis_code == code:
+            request.session['adminname'] = mobile
             return JsonResponse({'status': 1})  # 验证码失效
         else:
             return JsonResponse({'status': 0})
