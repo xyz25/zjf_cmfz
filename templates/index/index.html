@@ -4,10 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cmfz后台管理系统首页</title>
-    <link rel="stylesheet" href="{% static 'lib/css/bootstrap.3.3.7.min.css' %}">
-    <script src="{% static 'lib/js/jquery.2.2.1.min.js' %}"></script>
-    <script src="{% static 'lib/js/bootstrap.3.3.7.min.js' %}"></script>
+    <title>cmfz后台管理系统</title>
+    <link rel="icon" href="{% static 'img/arrow-up.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'boot/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'boot/css/back.css' %}">
+    <link rel="stylesheet" href="{% static 'jqgrid/css/trirand/ui.jqgrid-bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'jqgrid/css/jquery-ui.css' %}">
+    <script src="{% static 'boot/js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'boot/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'jqgrid/js/trirand/src/jquery.jqGrid.js' %}"></script>
+    <script src="{% static 'jqgrid/js/trirand/i18n/grid.locale-cn.js' %}"></script>
     <style>
         .panel-height {
             height: 30px;
@@ -92,7 +98,7 @@
             </div>
             <div id="collapseFour" class="panel-collapse collapse">
                 <div class="panel-body">
-                    轮播图管理ul
+                    轮播图列表
                 </div>
             </div>
         </div>

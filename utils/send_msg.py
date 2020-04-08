@@ -17,4 +17,4 @@ class YunPian(object):
             'text': f'【周俊峰】您的验证码是{code}。如非本人操作，请忽略本短信'
         }
         rsp = requests.post(self.single_send_url, data=parmas)
-        print(rsp)
+
