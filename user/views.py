@@ -92,7 +92,6 @@ def add(request):
     :param request:
     :return:
     """
-
     user_name = request.POST.get('user_name')
     if user_name in [i[0] for i in list(User.objects.values_list('name'))]:
         return JsonResponse({'status': 0})
@@ -104,11 +103,11 @@ def add(request):
     with transaction.atomic():
         User.objects.create(name=user_name, religions_name=religions_name, password=password,
                             salt=random_code.get_random_code(), status=status, address=address, email=email)
-
     return JsonResponse({'status': 1})
 
 
 def check_username(request):
+    """检查用户名是否重复"""
     user_name = request.GET.get('user_name')
     return JsonResponse({'status': 0}) if user_name in [i[0] for i in list(User.objects.values_list('name'))] \
         else JsonResponse({'status': 1})
@@ -116,6 +115,7 @@ def check_username(request):
 
 # @cache_page(timeout=24 * 60 * 60, key_prefix='get_weeks_data')
 def get_weeks_data(request):
+    """获取最近一周的注册人数"""
     if cache.has_key('get_weeks_data'):
         data = cache.get('get_weeks_data')
     else:
@@ -153,18 +153,15 @@ def get_weeks_data(request):
 
 # @cache_page(timeout=12 * 60 * 60, key_prefix='get_distribute')
 def get_distribute(request):
+    """获取全国用户分布数据"""
     if cache.has_key('get_distribute'):
         data = cache.get('get_distribute')
     else:
         print('get_distribute')
-        provinces = ["北京", "天津", "河北", "山西", "内蒙古", "吉林", "黑龙江", "辽宁", "上海", "江苏", "浙江", "安徽", "福建", "江西", "山东", "河南",
-                     "湖北",
-                     "湖南", "广东", "广西", "海南", "重庆", "四川", "贵州", "云南", "西藏", "陕西", "甘肃", "青海", "宁夏", "新疆", "香港", "澳门",
-                     "台湾"
+        provinces = ["北京", "天津", "河北", "山西", "内蒙古", "吉林", "黑龙江", "辽宁", "上海", "江苏", "浙江", "安徽",
+                     "福建", "江西", "山东", "河南", "湖北", "湖南", "广东", "广西", "海南", "重庆", "四川", "贵州", "云南", "西藏",
+                     "陕西", "甘肃", "青海", "宁夏", "新疆", "香港", "澳门", "台湾"
                      ]
-        # data = {}
-        # for i in provinces:
-        #     data[i] = len(User.objects.filter(address=i))
         data = []
         for i in provinces:
             data.append({'name': i, 'value': len(User.objects.filter(address=i))})
