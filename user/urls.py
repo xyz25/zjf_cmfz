@@ -10,5 +10,5 @@ urlpatterns = [
     path('add/', views.add, name='add'),
     path('check_username/', views.check_username, name='check_username'),
     path('get_weeks_data/', views.get_weeks_data, name='get_weeks_data'),
-
+    path('get_distribute/', views.get_distribute, name='get_distribute'),
 ]

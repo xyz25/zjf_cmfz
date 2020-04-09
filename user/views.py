@@ -139,11 +139,19 @@ def get_weeks_data(request):
     u3 = len(User.objects.filter(register_time=day5))
     u2 = len(User.objects.filter(register_time=day6))
     u1 = len(User.objects.filter(register_time=day7))
-    print(u1, u2, u3, u4, u5, u6, u7)
     data = {
         'x': [day7, day6, day5, day4, day3, day2, day1],
         'y': [u1, u2, u3, u4, u5, u6, u7]
     }
-    # data = json.dumps(data)
+    return JsonResponse({'data': data}, safe=False)
+
+
+def get_distribute(request):
+    provinces = ["北京", "天津", "河北", "山西", "内蒙古", "吉林", "黑龙江", "辽宁", "上海", "江苏", "浙江", "安徽", "福建", "江西", "山东", "河南", "湖北",
+                 "湖南", "广东", "广西", "海南", "重庆", "四川", "贵州", "云南", "西藏", "陕西", "甘肃", "青海", "宁夏", "新疆", "香港", "澳门", "台湾"
+                 ]
+    data = {}
+    for i in provinces:
+        data[i] = len(User.objects.filter(address=i))
     print(data)
-    return JsonResponse({'data':data},safe=False)
+    return JsonResponse({'data': data})
