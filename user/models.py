@@ -8,9 +8,9 @@ class User(models.Model):
     password = models.CharField(max_length=40)
     salt = models.CharField(max_length=40)
     status = models.BooleanField()
-    img_src = models.CharField(max_length=40)
+    img_src = models.ImageField(upload_to='user')
     last_login_time = models.DateTimeField()
-    details = models.TextField()
+    details = models.TextField(null=True)
     address = models.CharField(max_length=40)
     email = models.CharField(max_length=20)
 
