@@ -36,7 +36,7 @@
         </div>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="javascript:void(0);">欢迎：<span id="username">{{ adminname }}</span></a></li>
-            <li><a href="{% url 'user:logout' %}"><span class="glyphicon glyphicon-log-in"></span> 退出登录</a></li>
+            <li><a href="{% url 'cmfz:logout' %}"><span class="glyphicon glyphicon-log-in"></span> 退出登录</a></li>
         </ul>
     </div>
 </nav>
@@ -46,14 +46,20 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title panel-height">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       href="#collapseOne" style="line-height: 30px">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="line-height: 30px">
                         用户管理
                     </a>
                 </h4>
             </div>
             <div id="collapseOne" class="panel-collapse collapse">
                 <div class="panel-body">
+                    <a href="javascript:$('#container1').load('{% static 'static_html/carousel_list.html' %}')">用户信息</a>
+                </div>
+                <div class="panel-body">
+                    <a href="javascript:$('#container1').load('{% static 'static_html/carousel_list.html' %}')">用户注册趋势图</a>
+                </div>
+                <div class="panel-body">
+                    <a href="javascript:$('#container1').load('{% static 'static_html/carousel_list.html' %}')">用户全国分布图</a>
                 </div>
             </div>
         </div>
@@ -98,7 +104,7 @@
             </div>
             <div id="collapseFour" class="panel-collapse collapse">
                 <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'carousel/carousel_list.html' %}')">轮播图列表</a>
+                    <a href="javascript:$('#container1').load('{% static 'static_html/carousel_list.html' %}')">轮播图列表</a>
                 </div>
             </div>
         </div>

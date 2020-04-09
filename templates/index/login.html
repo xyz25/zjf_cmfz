@@ -61,7 +61,7 @@
                     $.ajax({
                         type: 'post',
                         data: {mobile: $("#mobile").val()},
-                        url: "{% url 'user:check_user' %}",
+                        url: "{% url 'cmfz:check_user' %}",
                         success: function (msg) {
                             if (msg.status) alert('发送成功')
                             else alert('发送失败')
@@ -73,7 +73,7 @@
             // 验证是否登录成功
             $("#loginbtn").click(function () {
                 $.ajax({
-                    url: "{% url 'user:login_form' %}",
+                    url: "{% url 'cmfz:login_form' %}",
                     datatype: 'json',
                     type: 'get',
                     // 获取id为loginForm的表单数据
