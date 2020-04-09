@@ -1,6 +1,6 @@
 <script>
     $(function () {
-        $("#carouseltable").jqGrid({
+        $("#userTable").jqGrid({
             url: '/user/get_list/',
             datatype: 'json',
             styleUI: "Bootstrap",
@@ -11,19 +11,62 @@
             viewrecords: true,
             cellEdit: true,
             editurl: '/user/edit/',
-            colNames: ["ID", "用户名", "法名", "密码", "盐",'邮箱', "状态",'上一次登录时间','地区','操作'],
+            colNames: ["ID", "用户名", "法名", "密码", "盐", '邮箱', "状态", '上一次登录时间', '地区', '操作'],
             colModel: [
-                {name: "id"},
-                {name: "name"},
-                {name: "religions_name", editable: true},
-                {name:'password',editable:true},
-                {name:'salt',editable:true},
-                {name:'email',editable:true},
-                {name:'status',editable:true},
-                {name:'last_login_time'},
-                {name:'address',editable:true},
+                {name: "id", width: '35px'},
+                {name: "name", editable: true, width: '60px'},
+                {name: "religions_name", editable: true, width: '70px'},
+                {name: 'password', editable: true, width: '70px'},
+                {name: 'salt', width: '50px'},
+                {name: 'email', editable: true, width: '100px'},
                 {
-                    name: 'options', formatter: function (cellvalue, options, rowObject) {
+                    name: 'status', editable: true, width: '60px', formatter: function (cellvalue, options, rowObject) {
+                        if (cellvalue === true) return '正常'
+                        else return '冻结'
+                    },edittype: 'select',editoptions: {value: 'false:冻结;true:正常'}
+                },
+                {name: 'last_login_time', width: '90px'},
+                {
+                    name: 'address', editable: true, width: '100px', edittype: 'select',
+                    editoptions: {
+                        value: '北京:北京;' +
+                            '天津:天津;' +
+                            '河北:河北;' +
+                            '山西:山西;' +
+                            '内蒙古:内蒙古;' +
+                            '吉林:吉林;' +
+                            '黑龙江:黑龙江;' +
+                            '辽宁:辽宁;' +
+                            '上海:上海;' +
+                            '江苏:江苏;' +
+                            '浙江:浙江;' +
+                            '安徽:安徽;' +
+                            '福建:福建;' +
+                            '江西:江西;' +
+                            '山东:山东;' +
+                            '河南:河南;' +
+                            '湖北:湖北;' +
+                            '湖南:湖南;' +
+                            '广东:广东;' +
+                            '广西:广西;' +
+                            '海南:海南;' +
+                            '重庆:重庆;' +
+                            '四川:四川;' +
+                            '贵州:贵州;' +
+                            '云南:云南;' +
+                            '西藏:西藏;' +
+                            '陕西:陕西;' +
+                            '甘肃:甘肃;' +
+                            '青海:青海;' +
+                            '宁夏:宁夏;' +
+                            '新疆:新疆;' +
+                            '香港:香港;' +
+                            '澳门:澳门;' +
+                            '台湾:台湾'
+                    }
+                },
+                {
+                    name: 'options', width: '100px', formatter: function (cellvalue, options, rowObject) {
                         return "<button class=\"btn btn-warning\"  name='edit' onclick=\"edit(" + rowObject.id + ")\"><span class=\"glyphicon glyphicon-edit\"></span> 修改</button>" + '&nbsp&nbsp' +
                             "<button class=\"btn btn-danger\"  name='del' onclick=\"del(" + rowObject.id + ")\"><span class=\"glyphicon glyphicon-edit\"></span> 删除</button>"
                     }
@@ -32,43 +75,53 @@
 
         });
 
-
-        // 模态框提交
+        // 新增用户
         $("#save").click(function () {
-            // 通过formdata获取文件的值
-            var title = $("#upload_title").val();
-            var status = $("#upload_status").val();
-            var pic = $("#upload_pic")[0].files[0];
-
-            var formData = new FormData();
-            formData.append("title", title);
-            formData.append("status", status);
-            formData.append("pic", pic);
-
-            $.ajax({
-                url: "/user/add/",
-                type: "post",
-                data: formData,
-                processData: false,     // 使数据不做处理
-                contentType: false,     // 不设置请求头
-                success: function () {
-                    $('#carouseltable').modal('hide');// 根据保存的返回值进行处理
-                    $('#carouseltable').trigger("reloadGrid");// 刷新jqgrid表格
-                }
-            });
+            if (check_username()) {
+                $.ajax({
+                    url: "/user/add/",
+                    type: "post",
+                    data: $('#addForm').serialize(),
+                    success: function (msg) {
+                        if (msg.status === 1){
+                            $('#userTable').modal('hide');// 根据保存的返回值进行处理
+                            $('#userTable').trigger("reloadGrid");// 刷新jqgrid表格
+                        }
+                    }
+                });
+            }
         });
 
     });
 
+    // 用户名是否重复
+    function check_username() {
+        user_name = $('#user_name').val()
+        $.ajax({
+            url: '/user/check_username/',
+            type: 'get',
+            data: 'user_name=' + user_name,
+            success: function (msg) {
+                if (msg.status === 0) {
+                    $('#username_info').html('用户名已存在！！！')
+                    return false
+                } else {
+                    $('#username_info').html('')
+                    return true
+                }
+            }
+        })
+    }
+
     function edit(row_id) {
-        $("#carouseltable").jqGrid('editGridRow', row_id, {
+        $("#userTable").jqGrid('editGridRow', row_id, {
             height: 300,
             reloadAfterSubmit: true
         });
     }
 
     function del(row_id) {
-        $("#carouseltable").jqGrid('delGridRow', row_id, {
+        $("#userTable").jqGrid('delGridRow', row_id, {
             reloadAfterSubmit: true
         });
     }
@@ -76,13 +129,13 @@
 
 
 <div class="page-header">
-    <h2>轮播图管理</h2>
+    <h2>用户信息管理</h2>
 </div>
 <ul class="nav nav-tabs ">
-    <li class="active"><a href="#"><b>轮播图信息</b></a></li>
+    <li class="active"><a href="#"><b>用户信息</b></a></li>
 </ul>
 <div class="panel panel-default" style="padding: 40px">
-    <table id="carouseltable"></table>
+    <table id="userTable"></table>
 
     <div class="alert alert-success" role="alert" id="addBannerMsg" style="display: none">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -106,32 +159,78 @@
             <div class="modal-header">
                 <!--用来关闭模态框的属性:data-dismiss="modal"-->
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                <h4 class="modal-title">新增轮播图</h4>
+                <h4 class="modal-title">新增用户</h4>
             </div>
             <div class="modal-body">
-                <form action="" id="bannerForm">
+                <form action="" id="addForm">
                     <div class="modal-body form-horizontal">
                         <div class="form-group ">
-                            <label class="col-sm-2 control-label">描述：</label>
+                            <label class="col-sm-2 control-label">用户名：</label>
                             <div class="col-sm-10">
-                                <input type="text" name="title" id="upload_title" class="form-control"
-                                       placeholder="请输入图片标题">
+                                <input type="text" name="user_name" id="user_name" class="form-control"
+                                       onblur="check_username()">
+                                <span class="text-danger" id="username_info"></span>
                             </div>
                         </div>
                         <div class="form-group ">
-                            <label class="col-sm-2 control-label">状态：</label>
+                            <label class="col-sm-2 control-label">法名：</label>
                             <div class="col-sm-10">
-                                <select type="text" name="status" id="upload_status" class="form-control"
-                                        placeholder="请选择图片状态">
-                                    <option value="1">显示</option>
-                                    <option value="0">不显示</option>
+                                <input type="text" name="religions_name" id="religions_name" class="form-control"
+                                       placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label">密码：</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="password" id="password" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label">邮箱：</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="email" id="email" class="form-control" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-2 control-label">地区：</label>
+                            <div class="col-sm-10">
+                                <select type="text" name="address" id="address" class="form-control"
+                                        placeholder="请选择地区">
+                                    <option value="北京">北京</option>
+                                    <option value="天津">天津</option>
+                                    <option value="河北">河北</option>
+                                    <option value="山西">山西</option>
+                                    <option value="内蒙古">内蒙古</option>
+                                    <option value="吉林">吉林</option>
+                                    <option value="黑龙江">黑龙江</option>
+                                    <option value="辽宁">辽宁</option>
+                                    <option value="上海">上海</option>
+                                    <option value="江苏">江苏</option>
+                                    <option value="浙江">浙江</option>
+                                    <option value="安徽">安徽</option>
+                                    <option value="福建">福建</option>
+                                    <option value="江西">江西</option>
+                                    <option value="山东">山东</option>
+                                    <option value="河南">河南</option>
+                                    <option value="湖北">湖北</option>
+                                    <option value="湖南">湖南</option>
+                                    <option value="广东">广东</option>
+                                    <option value="广西">广西</option>
+                                    <option value="海南">海南</option>
+                                    <option value="重庆">重庆</option>
+                                    <option value="四川">四川</option>
+                                    <option value="贵州">贵州</option>
+                                    <option value="云南">云南</option>
+                                    <option value="西藏">西藏</option>
+                                    <option value="陕西">陕西</option>
+                                    <option value="甘肃">甘肃</option>
+                                    <option value="青海">青海</option>
+                                    <option value="宁夏">宁夏</option>
+                                    <option value="新疆">新疆</option>
+                                    <option value="香港">香港</option>
+                                    <option value="澳门">澳门</option>
+                                    <option value="台湾">台湾</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="form-group ">
-                            <label class="col-sm-2 control-label">图片：</label>
-                            <div class="col-sm-10">
-                                <input type="file" name="pic" id="upload_pic" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>

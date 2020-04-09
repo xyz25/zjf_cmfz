@@ -5,8 +5,9 @@ from user import views
 app_name = 'user'
 
 urlpatterns = [
-    # path('login/', views.login, name='login'),
-    # path('check_user/', views.check_user, name='check_user'),
-    # path('login_form/', views.login_form, name='login_form'),
-    # path('logout/', views.logout, name='logout'),
+    path('get_list/', views.get_list, name='get_list'),
+    path('edit/', views.edit, name='edit'),
+    path('add/', views.add, name='add'),
+    path('check_username/', views.check_username, name='check_username'),
+
 ]
