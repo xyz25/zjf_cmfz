@@ -13,6 +13,8 @@
     <script src="{% static 'boot/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'jqgrid/js/trirand/src/jquery.jqGrid.js' %}"></script>
     <script src="{% static 'jqgrid/js/trirand/i18n/grid.locale-cn.js' %}"></script>
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+    <script src="{% static 'js/china.js' %}"></script>
     <style>
         .panel-height {
             height: 30px;
@@ -59,10 +61,10 @@
                     <a href="javascript:$('#container1').load('{% static 'static_html/user_list.html' %}')">用户信息</a>
                 </div>
                 <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'static_html/carousel_list.html' %}')">用户注册趋势图</a>
+                    <a href="javascript:$('#container1').load('{% static 'static_html/user_register.html' %}')">用户注册趋势图</a>
                 </div>
                 <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'static_html/carousel_list.html' %}')">用户全国分布图</a>
+                    <a href="javascript:$('#container1').load('{% static 'static_html/user_distributed.html' %}')">用户全国分布图</a>
                 </div>
             </div>
         </div>

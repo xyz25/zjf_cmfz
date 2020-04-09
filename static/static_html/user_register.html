@@ -1,0 +1,53 @@
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div class="page-header">
+    <h2>用户注册趋势图</h2>
+</div>
+<div id="main" style="width: 1000px;height:500px;margin: 20px auto"></div>
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    // 异步加载数据
+    $.ajax({
+        url: '/user/get_weeks_data/',
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+            console.log(data.data['x'])
+            myChart.setOption({
+                xAxis: {
+                    data: data.data['x']
+                },
+                series: [{
+                    // 根据名字对应到相应的系列
+                    type:'bar',
+                    name: '最近七天',
+                    data: data.data['y']
+                },
+                {
+                    // 根据名字对应到相应的系列
+                    type:'line',
+                    color:'blue',
+                    name: '最近七天',
+                    data: data.data['y']
+                }]
+            });
+        }
+    })
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '用户注册趋势'
+        },
+        tooltip: {},
+        legend: {
+            data: ['最近七天']
+        },
+        xAxis: {
+            data: []
+        },
+        yAxis: {}
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>

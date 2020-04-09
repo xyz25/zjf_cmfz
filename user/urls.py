@@ -9,5 +9,6 @@ urlpatterns = [
     path('edit/', views.edit, name='edit'),
     path('add/', views.add, name='add'),
     path('check_username/', views.check_username, name='check_username'),
+    path('get_weeks_data/', views.get_weeks_data, name='get_weeks_data'),
 
 ]

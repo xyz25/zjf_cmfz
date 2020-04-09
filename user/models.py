@@ -13,6 +13,7 @@ class User(models.Model):
     details = models.TextField(null=True)
     address = models.CharField(max_length=40)
     email = models.CharField(max_length=20)
+    register_time = models.DateField(auto_now_add=True,null=True)
 
     class Meta:
         db_table = 'user'

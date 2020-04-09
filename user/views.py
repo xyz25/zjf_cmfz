@@ -1,7 +1,8 @@
-import json
+import json, time
 
 from django.core.paginator import Paginator
 from django.db import transaction
+from django.db.models import Count
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -65,15 +66,15 @@ def edit(request):
     religions_name = request.POST.get('religions_name')
     password = request.POST.get('password')
     address = request.POST.get('address')
-    status = True if request.POST.get('status')=='True' else False
+    status = True if request.POST.get('status') == 'True' else False
     email = request.POST.get('email')
 
     if oper == 'edit':
         with transaction.atomic():
-            user= User.objects.get(id=id)
+            user = User.objects.get(id=id)
             user.status = status
-            user.name=name
-            user.religions_name= religions_name
+            user.name = name
+            user.religions_name = religions_name
             user.password = password
             user.address = address
             user.email = email
@@ -109,4 +110,40 @@ def add(request):
 
 def check_username(request):
     user_name = request.GET.get('user_name')
-    return JsonResponse({'status': 0}) if user_name in [i[0] for i in list(User.objects.values_list('name'))] else JsonResponse({'status': 1})
+    return JsonResponse({'status': 0}) if user_name in [i[0] for i in
+                                                        list(User.objects.values_list('name'))] else JsonResponse(
+        {'status': 1})
+
+
+def get_weeks_data(request):
+    t = time.time()
+    t1 = t - 24 * 60 * 60 * 1
+    day1 = time.strftime('%Y-%m-%d', time.gmtime(t1))
+    t2 = t - 24 * 60 * 60 * 2
+    day2 = time.strftime('%Y-%m-%d', time.gmtime(t2))
+    t3 = t - 24 * 60 * 60 * 3
+    day3 = time.strftime('%Y-%m-%d', time.gmtime(t3))
+    t4 = t - 24 * 60 * 60 * 4
+    day4 = time.strftime('%Y-%m-%d', time.gmtime(t4))
+    t5 = t - 24 * 60 * 60 * 5
+    day5 = time.strftime('%Y-%m-%d', time.gmtime(t5))
+    t6 = t - 24 * 60 * 60 * 6
+    day6 = time.strftime('%Y-%m-%d', time.gmtime(t6))
+    t7 = t - 24 * 60 * 60 * 7
+    day7 = time.strftime('%Y-%m-%d', time.gmtime(t7))
+    print(day1, day2, day3, day4, day5, day6, day7)
+    u7 = len(User.objects.filter(register_time=day1))
+    u6 = len(User.objects.filter(register_time=day2))
+    u5 = len(User.objects.filter(register_time=day3))
+    u4 = len(User.objects.filter(register_time=day4))
+    u3 = len(User.objects.filter(register_time=day5))
+    u2 = len(User.objects.filter(register_time=day6))
+    u1 = len(User.objects.filter(register_time=day7))
+    print(u1, u2, u3, u4, u5, u6, u7)
+    data = {
+        'x': [day7, day6, day5, day4, day3, day2, day1],
+        'y': [u1, u2, u3, u4, u5, u6, u7]
+    }
+    # data = json.dumps(data)
+    print(data)
+    return JsonResponse({'data':data},safe=False)
