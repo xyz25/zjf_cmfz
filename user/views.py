@@ -60,3 +60,9 @@ def login_form(request):
             return JsonResponse({'status': 0})  # 验证码验证失败
     else:
         return JsonResponse({'status': 0})
+
+
+def logout(request):
+    """管理员退出登录"""
+    request.session.flush()
+    return redirect('user:login')
