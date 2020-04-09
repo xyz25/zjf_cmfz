@@ -10,6 +10,7 @@
     $.ajax({
         url: '/user/get_weeks_data/',
         type: 'get',
+        cache: false,
         dataType: 'json',
         success: function (data) {
             console.log(data.data['x'])
@@ -19,17 +20,17 @@
                 },
                 series: [{
                     // 根据名字对应到相应的系列
-                    type:'bar',
+                    type: 'bar',
                     name: '最近七天',
                     data: data.data.y
                 },
-                {
-                    // 根据名字对应到相应的系列
-                    type:'line',
-                    color:'blue',
-                    name: '最近七天',
-                    data: data.data.y
-                }]
+                    {
+                        // 根据名字对应到相应的系列
+                        type: 'line',
+                        color: 'blue',
+                        name: '最近七天',
+                        data: data.data.y
+                    }]
             });
         }
     })

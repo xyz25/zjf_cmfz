@@ -10,9 +10,9 @@
     $.ajax({
         url: '/user/get_distribute/',
         type: 'get',
+        cache:false,
         dataType: 'json',
         success: function (data) {
-            console.log(data)
             myChart.setOption({
                 series: [
                     {
@@ -28,40 +28,7 @@
                                 show: true
                             }
                         },
-                        data: [
-                            {name: '北京', value: data.data['北京']},
-                            {name: '天津', value: data.data['天津']},
-                            {name: '上海', value: data.data['上海']},
-                            {name: '重庆', value: data.data['重庆']},
-                            {name: '河北', value: data.data['河北']},
-                            {name: '河南', value: data.data['河南']},
-                            {name: '云南', value: data.data['云南']},
-                            {name: '辽宁', value: data.data['辽宁']},
-                            {name: '湖南', value: data.data['湖南']},
-                            {name: '安徽', value: data.data['安徽']},
-                            {name: '⼭东', value: data.data['⼭东']},
-                            {name: '新疆', value: data.data['新疆']},
-                            {name: '江苏', value: data.data['江苏']},
-                            {name: '浙江', value: data.data['浙江']},
-                            {name: '江⻄', value: data.data['江⻄']},
-                            {name: '湖北', value: data.data['湖北']},
-                            {name: '⼴⻄', value: data.data['⼴⻄']},
-                            {name: '⽢肃', value: data.data['⽢肃']},
-                            {name: '⼭⻄', value: data.data['⼭⻄']},
-                            {name: '陕⻄', value: data.data['陕⻄']},
-                            {name: '吉林', value: data.data['吉林']},
-                            {name: '福建', value: data.data['福建']},
-                            {name: '贵州', value: data.data['贵州']},
-                            {name: '⼴东', value: data.data['⼴东']},
-                            {name: '⻘海', value: data.data['⻘海']},
-                            {name: '⻄藏', value: data.data['⻄藏']},
-                            {name: '四川', value: data.data['四川']},
-                            {name: '宁夏', value: data.data['宁夏']},
-                            {name: '海南', value: data.data['海南']},
-                            {name: '台湾', value: data.data['台湾']},
-                            {name: '⾹港', value: data.data['⾹港']},
-                            {name: '澳⻔', value: data.data['澳⻔']}
-                        ]
+                        data: data.data
                     }
                 ]
             })
@@ -103,7 +70,6 @@
         },
 
     };
-
     // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
 </script>
