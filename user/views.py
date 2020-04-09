@@ -5,6 +5,7 @@ from django.db import transaction
 from django.db.models import Count
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 
 from carousel.models import Carousel
@@ -110,12 +111,13 @@ def add(request):
 
 def check_username(request):
     user_name = request.GET.get('user_name')
-    return JsonResponse({'status': 0}) if user_name in [i[0] for i in
-                                                        list(User.objects.values_list('name'))] else JsonResponse(
-        {'status': 1})
+    return JsonResponse({'status': 0}) if user_name in [i[0] for i in list(User.objects.values_list('name'))] \
+        else JsonResponse({'status': 1})
 
 
+@cache_page(timeout=24 * 60 * 60, key_prefix='get_weeks_data')
 def get_weeks_data(request):
+    print('get_weeks_data')
     t = time.time()
     t1 = t - 24 * 60 * 60 * 1
     day1 = time.strftime('%Y-%m-%d', time.gmtime(t1))
@@ -146,12 +148,13 @@ def get_weeks_data(request):
     return JsonResponse({'data': data}, safe=False)
 
 
+@cache_page(timeout=12 * 60 * 60, key_prefix='get_distribute')
 def get_distribute(request):
+    print('get_distribute')
     provinces = ["北京", "天津", "河北", "山西", "内蒙古", "吉林", "黑龙江", "辽宁", "上海", "江苏", "浙江", "安徽", "福建", "江西", "山东", "河南", "湖北",
                  "湖南", "广东", "广西", "海南", "重庆", "四川", "贵州", "云南", "西藏", "陕西", "甘肃", "青海", "宁夏", "新疆", "香港", "澳门", "台湾"
                  ]
     data = {}
     for i in provinces:
         data[i] = len(User.objects.filter(address=i))
-    print(data)
     return JsonResponse({'data': data})

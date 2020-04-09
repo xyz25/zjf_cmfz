@@ -130,4 +130,14 @@ API_KEY = 'befefc54d5a23e4d3c760eb7824d2427'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
-SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",  # Redis缓存入口，其中使用DefaultClient操作缓存
+        "LOCATION": "redis://127.0.0.1:6379",  # ip:port/db_index
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"  # 操作缓存的对象
+        }
+    }
+}
