@@ -9,6 +9,11 @@ def check_username(name):
     print([i[0] for i in list(User.objects.values_list('name'))])
 
 
+def test(*args):
+    for i in args:
+        print(i)
+    print(args)
+
 if __name__ == '__main__':
     import time
 
@@ -46,11 +51,12 @@ if __name__ == '__main__':
     #     day1: u7
     # }
     #
-    provinces = ["北京", "天津", "河北", "山西", "内蒙古", "吉林", "黑龙江", "辽宁", "上海", "江苏", "浙江", "安徽", "福建", "江西", "山东", "河南", "湖北",
-                 "湖南", "广东", "广西", "海南", "重庆", "四川", "贵州", "云南", "西藏", "陕西", "甘肃", "青海", "宁夏", "新疆", "香港", "澳门", "台湾"
-                 ]
-    data = []
-    for i in provinces:
-        data.append({'name':i,'value':len(User.objects.filter(address=i))})
-        # data[i] = len(User.objects.filter(address=i))
-    print(data)
+    # provinces = ["北京", "天津", "河北", "山西", "内蒙古", "吉林", "黑龙江", "辽宁", "上海", "江苏", "浙江", "安徽", "福建", "江西", "山东", "河南", "湖北",
+    #              "湖南", "广东", "广西", "海南", "重庆", "四川", "贵州", "云南", "西藏", "陕西", "甘肃", "青海", "宁夏", "新疆", "香港", "澳门", "台湾"
+    #              ]
+    # data = []
+    # for i in provinces:
+    #     data.append({'name':i,'value':len(User.objects.filter(address=i))})
+    #     # data[i] = len(User.objects.filter(address=i))
+    # print(data)
+    test(*[1,2,3])

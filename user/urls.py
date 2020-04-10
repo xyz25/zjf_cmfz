@@ -11,4 +11,5 @@ urlpatterns = [
     path('check_username/', views.check_username, name='check_username'),
     path('get_weeks_data/', views.get_weeks_data, name='get_weeks_data'),
     path('get_distribute/', views.get_distribute, name='get_distribute'),
+    path('celledit/', views.celledit, name='celledit'),
 ]

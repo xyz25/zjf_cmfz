@@ -66,7 +66,7 @@ def edit(request):
     religions_name = request.POST.get('religions_name')
     password = request.POST.get('password')
     address = request.POST.get('address')
-    status = True if request.POST.get('status') == 'True' else False
+    status = True if request.POST.get('status') == 'true' else False
     email = request.POST.get('email')
 
     if oper == 'edit':
@@ -167,3 +167,30 @@ def get_distribute(request):
             data.append({'name': i, 'value': len(User.objects.filter(address=i))})
             cache.set('get_distribute', data, 60 * 60)
     return JsonResponse({'data': data})
+
+
+@csrf_exempt
+def celledit(request):
+    try:
+        if request.POST.get('oper') == 'edit':
+            with transaction.atomic():
+                id = request.POST.get('id')
+                user = User.objects.get(id=id)
+                if request.POST.get('status'):
+                    status = True if request.POST.get('status') == 'True' else False
+                    user.status = status
+                elif request.POST.get('name'):
+                    user.name = request.POST.get('name')
+                elif request.POST.get('religions_name'):
+                    user.religions_name = request.POST.get('religions_name')
+                elif request.POST.get('email'):
+                    user.email = request.POST.get('email')
+                elif request.POST.get('password'):
+                    user.password = request.POST.get('password')
+                elif request.POST.get('address'):
+                    user.address = request.POST.get('address')
+                user.save()
+    except Exception as tips:
+        print(tips)
+
+    return HttpResponse()
