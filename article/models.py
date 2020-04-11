@@ -7,8 +7,14 @@ class Article(models.Model):
     author = models.CharField(max_length=20)
     publish_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-    pics = models.CharField(max_length=20)
     cate = models.BooleanField()
 
     class Meta:
         db_table = 'article'
+
+
+class Pic(models.Model):
+    img = models.ImageField(upload_to='img')
+
+    class Meta:
+        db_table = 'article_pic'

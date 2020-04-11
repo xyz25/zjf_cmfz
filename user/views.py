@@ -16,7 +16,6 @@ from utils import random_code
 
 def get_list(request):
     """获取单页的用户信息"""
-    print('dads')
     rows = request.GET.get('rows', 2)
     page = request.GET.get('page', 1)
     st_list = list(User.objects.all().order_by('id'))

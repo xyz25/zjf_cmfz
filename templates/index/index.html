@@ -15,6 +15,8 @@
     <script src="{% static 'jqgrid/js/trirand/i18n/grid.locale-cn.js' %}"></script>
     <script src="{% static 'js/echarts.min.js' %}"></script>
     <script src="{% static 'js/china.js' %}"></script>
+    <script src="{% static 'kindeditor/kindeditor-all-min.js' %}"></script>
+    <script src="{% static 'kindeditor/lang/zh-CN.js' %}"></script>
     <style>
         .panel-height {
             height: 30px;
@@ -28,7 +30,8 @@
             width: 1140px;
             margin: 20px auto;
         }
-        td{
+
+        td {
             text-align: center;
         }
     </style>
@@ -79,7 +82,7 @@
             </div>
             <div id="collapseTwo" class="panel-collapse collapse">
                 <div class="panel-body">
-                    文章管理ul
+                    <a href="javascript:$('#container1').load('{% static 'static_html/article_list.html' %}')">文章列表</a>
                 </div>
             </div>
         </div>
@@ -121,7 +124,7 @@
             <h2>欢迎来到持明法州后台管理系统！</h2>
         </div>
     </div>
-    <div class="container" >
+    <div class="container">
         <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000"
              data-pause="hover" data-wrap="true">
             <!-- 轮播（Carousel）指标 -->
@@ -133,15 +136,18 @@
             <!-- 轮播（Carousel）项目 -->
             <div class="carousel-inner">
                 <div class="item active">
-                    <img style="width: 1345px;height:335px " src="{% static carousels.0.img_url.url %}" alt="First slide">
+                    <img style="width: 1345px;height:335px " src="{% static carousels.0.img_url.url %}"
+                         alt="First slide">
                     <div class="carousel-caption">{{ carousels.0.title }}</div>
                 </div>
                 <div class="item">
-                    <img style="width: 1345px;height:335px " src="{% static carousels.1.img_url.url %}" alt="Second slide">
+                    <img style="width: 1345px;height:335px " src="{% static carousels.1.img_url.url %}"
+                         alt="Second slide">
                     <div class="carousel-caption">{{ carousels.1.title }}</div>
                 </div>
                 <div class="item">
-                    <img style="width: 1345px;height:335px " src="{% static carousels.2.img_url.url %}" alt="Third slide">
+                    <img style="width: 1345px;height:335px " src="{% static carousels.2.img_url.url %}"
+                         alt="Third slide">
                     <div class="carousel-caption">{{ carousels.2.title }}</div>
                 </div>
             </div>
