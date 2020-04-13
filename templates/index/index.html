@@ -21,16 +21,13 @@
         .panel-height {
             height: 30px;
         }
-
         body {
             font-weight: bold;
         }
-
         #myCarousel {
             width: 1140px;
             margin: 20px auto;
         }
-
         td {
             text-align: center;
         }
@@ -91,13 +88,13 @@
                 <h4 class="panel-title panel-height">
                     <a data-toggle="collapse" data-parent="#accordion"
                        href="#collapseThree" style="line-height: 30px">
-                        专辑管理
+                        <a href="javascript:$('#container1').load('{% static 'static_html/album_list.html' %}')">专辑列表</a>
                     </a>
                 </h4>
             </div>
             <div id="collapseThree" class="panel-collapse collapse">
                 <div class="panel-body">
-                    专辑管理ul
+                    <a href="javascript:$('#container1').load('{% static 'static_html/album_list.html' %}')">专辑列表</a>
                 </div>
             </div>
         </div>

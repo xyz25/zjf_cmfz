@@ -5,12 +5,12 @@ from django.db import models
 class Album(models.Model):
     title = models.CharField(max_length=20)
     author = models.CharField(max_length=20)
-    broadcast = models.CharField(max_length=20)
-    chapter_count = models.IntegerField()
-    content = models.TextField()
-    score = models.SmallIntegerField()
+    broadcast = models.CharField(max_length=20,null=True)
+    chapter_count = models.IntegerField(null=True,default=0)
+    content = models.TextField(null=True)
+    score = models.SmallIntegerField(default=5)
     publish_time = models.DateTimeField(auto_now_add=True)
-    img_src = models.CharField(max_length=40)
+    img_src = models.ImageField(upload_to='img')
 
     class Meta:
         db_table = 'album'
@@ -18,9 +18,9 @@ class Album(models.Model):
 
 class Chapter(models.Model):
     title = models.CharField(max_length=20)
-    size = models.DecimalField(max_digits=6, decimal_places=2)
-    url = models.CharField(max_length=20)
-    time_long = models.SmallIntegerField()
+    size = models.DecimalField(max_digits=10, decimal_places=2)
+    url = models.FileField(upload_to='video')
+    time_long = models.SmallIntegerField(null=True)
     album_id = models.IntegerField()
 
     class Meta:
