@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render
 
 import json
@@ -112,11 +114,12 @@ def chapters_ofalbum(request):
 
     def mydefault(u):
         if isinstance(u, Chapter):
+            duration = str(u.time_long/3600)+':'+str(u.time_long/3600)
             return {
                 'id': u.id,
                 'title': u.title,
-                'size': str(u.size),
-                'time_long': u.time_long,
+                'size': str(round(u.size / 1024 / 1024, 2)) + 'MB',
+                'time_long': str(datetime.timedelta(seconds=u.time_long)),
                 'url': str(u.url)
             }
 
