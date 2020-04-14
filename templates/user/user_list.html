@@ -24,7 +24,7 @@
                 {name: 'email', editable: true, width: '100px'},
                 {
                     name: 'status', editable: true, width: '40px', formatter: function (cellvalue, options, rowObject) {
-                        if (cellvalue === true) return '正常'
+                        if (cellvalue === true) return '正常';
                         else return '冻结'
                     }, edittype: 'select', editoptions: {value: 'false:冻结;true:正常'}
                 },

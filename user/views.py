@@ -176,7 +176,8 @@ def celledit(request):
                 id = request.POST.get('id')
                 user = User.objects.get(id=id)
                 if request.POST.get('status'):
-                    status = True if request.POST.get('status') == 'True' else False
+                    print(request.POST.get('status'))
+                    status = True if request.POST.get('status') == 'true' else False
                     user.status = status
                 elif request.POST.get('name'):
                     user.name = request.POST.get('name')
