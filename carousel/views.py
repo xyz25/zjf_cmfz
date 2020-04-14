@@ -89,3 +89,7 @@ def add(request):
 
 def get_status(request):
     return HttpResponse("<select><option value='1'>显示</option>" + "<option value='0'>不显示</option></select>")
+
+
+def carousel_list(request):
+    return render(request, 'carousel/carousel_list.html')

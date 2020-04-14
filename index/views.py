@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from redis import Redis
 from index.models import Admin
 from utils import send_msg
+from utils.init_permission import init_permission
 from utils.random_code import get_random_code
 
 from zjf_cmfz import settings
@@ -20,8 +21,10 @@ def index(request):
     """
     if request.session.get('adminname'):
         carousels = list(Carousel.objects.all())[:3]
+        menu_list = request.session.get('menu_list')
+        print(menu_list)
         return render(request, 'index/index.html',
-                      {'adminname': request.session.get('adminname'), 'carousels': carousels})
+                      {'adminname': request.session.get('adminname'), 'carousels': carousels,'menus':menu_list})
     else:
         return redirect('cmfz:login')
 
@@ -70,6 +73,7 @@ def login_form(request):
         redis_code = red.get(mobile + '_1').decode()
         if redis_code == code:
             request.session['adminname'] = mobile
+            init_permission(Admin.objects.get(name=mobile), request)
             return JsonResponse({'status': 1})  # 验证码验证成功
         else:
             return JsonResponse({'status': 0})  # 验证码验证失败

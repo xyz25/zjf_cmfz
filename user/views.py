@@ -191,5 +191,19 @@ def celledit(request):
                 user.save()
     except Exception as tips:
         print(tips)
-
     return HttpResponse()
+
+
+def user_list(request):
+    """渲染用户信息界面"""
+    return render(request, 'user/user_list.html')
+
+
+def user_register(request):
+    """渲染用户注册趋势图界面"""
+    return render(request, 'user/user_register.html')
+
+
+def user_distributed(request):
+    """渲染用户全国分布图界面"""
+    return render(request, 'user/user_distributed.html')

@@ -12,9 +12,6 @@ from django.views.decorators.clickjacking import xframe_options_sameorigin
 from django.views.decorators.csrf import csrf_exempt
 
 from article.models import Pic, Article
-from carousel.models import Carousel
-from user.models import User
-from utils import random_code
 
 
 def get_list(request):
@@ -188,3 +185,7 @@ def get_all_pic(request):
 
     }
     return HttpResponse(json.dumps(data), content_type="application/json")
+
+
+def article_list(request):
+    return render(request, 'article/article_list.html')

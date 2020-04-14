@@ -12,4 +12,5 @@ urlpatterns = [
     path('edit/', views.edit, name='edit'),
     path('article_del/', views.article_del, name='article_del'),
     path('celledit/', views.celledit, name='celledit'),
+    path('article_list/', views.article_list, name='article_list'),
 ]

@@ -8,5 +8,6 @@ urlpatterns = [
     path('edit/', views.edit, name='edit'),
     path('add/', views.add, name='add'),
     path('get_status/', views.get_status, name='get_status'),
+    path('carousel_list/', views.carousel_list, name='carousel_list'),
 
 ]

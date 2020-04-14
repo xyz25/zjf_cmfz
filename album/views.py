@@ -40,7 +40,7 @@ def get_list(request):
                 'title': u.title,
                 'author': u.author,
                 'broadcast': u.broadcast,
-                'chapter_count': u.chapter_count,
+                'chapter_count': len(list(Chapter.objects.filter(album_id=u.id))),
                 'score': u.score,
                 'publish_time': u.publish_time.strftime("%Y-%m-%d %H:%M:%S"),
                 'img_src': str(u.img_src),
@@ -114,7 +114,6 @@ def chapters_ofalbum(request):
 
     def mydefault(u):
         if isinstance(u, Chapter):
-            duration = str(u.time_long/3600)+':'+str(u.time_long/3600)
             return {
                 'id': u.id,
                 'title': u.title,
@@ -135,10 +134,12 @@ def chapter_add(request):
     album_id = request.POST.get('albumID')
     size = url.size
     time_long = MP3(url).info.length
-    print(title, url, album_id, size, time_long)
     try:
         with transaction.atomic():
             Chapter.objects.create(title=title, url=url, album_id=int(album_id), size=float(size), time_long=time_long)
+            album = Album.objects.get(id=int(album_id))
+            album.chapter_count += 1
+            album.save()
     except Exception as tips:
         print(tips)
         return JsonResponse({'status': 0})
@@ -166,3 +167,8 @@ def chapter_edit(request):
     except:
         return JsonResponse({'status': 0})
     return JsonResponse({'status': 1})
+
+
+def album_list(request):
+    """渲染专辑列表界面"""
+    return render(request, 'album/album_list.html')

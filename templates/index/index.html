@@ -21,13 +21,16 @@
         .panel-height {
             height: 30px;
         }
+
         body {
             font-weight: bold;
         }
+
         #myCarousel {
             width: 1140px;
             margin: 20px auto;
         }
+
         td {
             text-align: center;
         }
@@ -45,74 +48,103 @@
         </ul>
     </div>
 </nav>
-{#style="width: 180px"#}
 <div class="col-sm-2">
     <div class="panel-group" id="accordion">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title panel-height">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" style="line-height: 30px">
-                        用户管理
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseOne" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'static_html/user_list.html' %}')">用户信息</a>
+        {% if menus.0 %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title panel-height">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                           style="line-height: 30px">
+                            用户管理
+                        </a>
+                    </h4>
                 </div>
-                <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'static_html/user_register.html' %}')">用户注册趋势图</a>
-                </div>
-                <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'static_html/user_distributed.html' %}')">用户全国分布图</a>
-                </div>
-            </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title panel-height">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       href="#collapseTwo" style="line-height: 30px">
-                        文章管理
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseTwo" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'static_html/article_list.html' %}')">文章列表</a>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    {% for menu in menus.0 %}
+                        <div class="panel-body">
+                            <a href="javascript:$('#container1').load('{{ menu.url }}')">{{ menu.title }}</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title panel-height">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       href="#collapseThree" style="line-height: 30px">
-                        <a href="javascript:$('#container1').load('{% static 'static_html/album_list.html' %}')">专辑列表</a>
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseThree" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'static_html/album_list.html' %}')">专辑列表</a>
+        {% endif %}
+        {% if menus.1 %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title panel-height">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                           style="line-height: 30px">
+                            文章管理
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    {% for menu in menus.1 %}
+                        <div class="panel-body">
+                            <a href="javascript:$('#container1').load('{{ menu.url }}')">{{ menu.title }}</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h4 class="panel-title panel-height">
-                    <a data-toggle="collapse" data-parent="#accordion"
-                       href="#collapseFour" style="line-height: 30px">
-                        轮播图管理
-                    </a>
-                </h4>
-            </div>
-            <div id="collapseFour" class="panel-collapse collapse">
-                <div class="panel-body">
-                    <a href="javascript:$('#container1').load('{% static 'static_html/carousel_list.html' %}')">轮播图列表</a>
+        {% endif %}
+        {% if menus.2 %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title panel-height">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"
+                           style="line-height: 30px">
+                            专辑管理
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    {% for menu in menus.2 %}
+                        <div class="panel-body">
+                            <a href="javascript:$('#container1').load('{{ menu.url }}')">{{ menu.title }}</a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
-        </div>
+        {% endif %}
+        {% if menus.3 %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panel-height">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"
+                               style="line-height: 30px">
+                                轮播图管理
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFour" class="panel-collapse collapse">
+                        {% for menu in menus.3 %}
+                            <div class="panel-body">
+                                <a href="javascript:$('#container1').load('{{menu.url}}')">{{ menu.title }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% if menus.4 %}
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title panel-height">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive"
+                               style="line-height: 30px">
+                                管理员管理
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseFive" class="panel-collapse collapse">
+                        {% for menu in menus.4 %}
+                            <div class="panel-body">
+                                <a href="javascript:$('#container1').load('{{menu.url}}')">{{ menu.title }}</a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
     </div>
 </div>
 <div class="col-sm-10" id="container1">
