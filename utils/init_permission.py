@@ -4,17 +4,13 @@ from rbac.models import Permission
 def init_permission(admin, request):
     """获取当前登录用户的权限列表"""
 
-    permission_url = admin.roles.filter(permissions__isnull=False).values("permissions__url",
-                                                                          "permissions__is_menu",
-                                                                          "permissions__title",
-                                                                          "permissions__id").distinct()
+    permission_url = admin.roles.filter(permissions__isnull=False).values("permissions__url", "permissions__is_menu",
+                                                                          "permissions__title").distinct()
 
     # 权限url列表
     permission_list = [i['permissions__url'] for i in permission_url]
+
     # 菜单列表
-
-    # menu_list = [i['permissions__url'] for i in permission_url if i['permissions__is_menu']]
-
     menu_list = [[], [], [], [], []]
     for i in permission_url:
         if i['permissions__is_menu']:

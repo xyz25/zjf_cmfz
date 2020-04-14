@@ -9,10 +9,6 @@ def check_username(name):
     print([i[0] for i in list(User.objects.values_list('name'))])
 
 
-def test(*args):
-    for i in args:
-        print(i)
-    print(args)
 
 if __name__ == '__main__':
     import time
@@ -59,4 +55,3 @@ if __name__ == '__main__':
     #     data.append({'name':i,'value':len(User.objects.filter(address=i))})
     #     # data[i] = len(User.objects.filter(address=i))
     # print(data)
-    test(*[1,2,3])
