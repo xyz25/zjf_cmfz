@@ -16,21 +16,21 @@
             editurl: '/user/edit/',
             colNames: ["ID", "用户名", "法名", "密码", "盐", '邮箱', "状态", '上一次登录时间', '地区', '操作'],
             colModel: [
-                {name: "id", width: '35px'},
+                {name: "id", width: '20px'},
                 {name: "name", editable: true, width: '60px'},
                 {name: "religions_name", editable: true, width: '70px'},
                 {name: 'password', editable: true, width: '70px'},
                 {name: 'salt', width: '50px'},
                 {name: 'email', editable: true, width: '100px'},
                 {
-                    name: 'status', editable: true, width: '60px', formatter: function (cellvalue, options, rowObject) {
+                    name: 'status', editable: true, width: '40px', formatter: function (cellvalue, options, rowObject) {
                         if (cellvalue === true) return '正常'
                         else return '冻结'
                     }, edittype: 'select', editoptions: {value: 'false:冻结;true:正常'}
                 },
                 {name: 'last_login_time', width: '90px'},
                 {
-                    name: 'address', editable: true, width: '100px', edittype: 'select',
+                    name: 'address', editable: true, width: '60px', edittype: 'select',
                     editoptions: {
                         value: '北京:北京;' +
                             '天津:天津;' +
