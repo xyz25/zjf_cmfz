@@ -1,9 +1,10 @@
 import django, os
+from django.db.models import Count
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "zjf_cmfz.settings")
 django.setup()
 from user.models import User
-
+from album.models import Chapter
 
 def check_username(name):
     print([i[0] for i in list(User.objects.values_list('name'))])
@@ -55,3 +56,5 @@ if __name__ == '__main__':
     #     data.append({'name':i,'value':len(User.objects.filter(address=i))})
     #     # data[i] = len(User.objects.filter(address=i))
     # print(data)
+    c = Chapter.objects.filter(album_id=1).count()
+    print(type(c))
