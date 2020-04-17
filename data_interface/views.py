@@ -10,7 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from album.models import Album, Chapter
 from article.models import Article, Pic
 from carousel.models import Carousel
-from data_interface.defaults import album_default, article_default, carousel_default, album_chapter_default
+from data_interface.defaults import album_default, article_default, carousel_default, album_chapter_default, all_default
 from index.models import Admin
 from user.models import User
 from utils.md5_password import get_md5_password
@@ -59,11 +59,11 @@ def first_page(request):
 
     if type == 'all':
         """请求数据类型为专辑，轮播图，文章"""
-        data['header'] = json.dumps(list(Carousel.objects.all()), default=carousel_default)
-        data['album'] = json.dumps(list(Album.objects.all()), default=album_default)
-        data['article_ssyj'] = json.dumps(list(Article.objects.filter(cate=True)), default=article_default)
-        data['article_xmfy'] = json.dumps(list(Article.objects.filter(cate=False)), default=article_default)
-        return JsonResponse(data)
+        data['header'] = list(Carousel.objects.all())
+        data['album'] = list(Album.objects.all())
+        data['article_ssyj'] = list(Article.objects.filter(cate=True))
+        data['article_xmfy'] = list(Article.objects.filter(cate=False))
+        return HttpResponse(json.dumps(data, default=all_default))
 
 
 def album_detail(request):

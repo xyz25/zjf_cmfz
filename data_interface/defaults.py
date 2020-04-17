@@ -58,3 +58,12 @@ def album_chapter_default(u):
             'size': str(u.size),
             'duration': u.time_long
         }
+
+
+def all_default(u):
+    if album_default(u):
+        return album_default(u)
+    if article_default(u):
+        return article_default(u)
+    if carousel_default(u):
+        return carousel_default(u)
