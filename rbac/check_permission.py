@@ -13,7 +13,8 @@ class CheckPermission(MiddlewareMixin):
             '/admin/.*',
             '/cmfz/login/',
             '/cmfz/check_user/',
-            '/cmfz/login_form/'
+            '/cmfz/login_form/',
+            '/api/.*'
         ]
         current_url = request.path
         print('request.path', request.path)

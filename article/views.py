@@ -117,6 +117,7 @@ def celledit(request):
                 id = request.POST.get('id')
                 art = Article.objects.get(id=id)
                 if request.POST.get('cate'):
+                    print(request.POST.get('cate') == 'true')
                     cate = True if request.POST.get('cate') == 'true' else False
                     art.cate = cate
                 elif request.POST.get('title'):

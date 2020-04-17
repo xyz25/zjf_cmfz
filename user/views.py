@@ -12,6 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from carousel.models import Carousel
 from user.models import User
 from utils import random_code
+from utils.md5_password import get_md5_password
 
 
 def get_list(request):
@@ -99,9 +100,10 @@ def add(request):
     email = request.POST.get('email')
     address = request.POST.get('address')
     status = True
+    salt = random_code.get_random_code()
     with transaction.atomic():
-        User.objects.create(name=user_name, religions_name=religions_name, password=password,
-                            salt=random_code.get_random_code(), status=status, address=address, email=email)
+        User.objects.create(name=user_name, religions_name=religions_name, password=get_md5_password(salt,password),
+                            salt=salt, status=status, address=address, email=email)
     return JsonResponse({'status': 1})
 
 

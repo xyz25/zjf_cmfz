@@ -25,8 +25,10 @@
                     edittype: 'select',
                     editoptions: {value: 'false:上师言教;true:显密法要'},
                     formatter: function (cellvalue, options, rowObject) {
-                        if (cellvalue === false) return '上师言教'
-                        else return '显密法要'
+                        if (cellvalue === false)
+                            return '上师言教';
+                        else
+                            return '显密法要'
                     }
                 },
                 {
